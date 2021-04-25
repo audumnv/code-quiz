@@ -6,4 +6,12 @@ This project is a timed quiz. Upon clicking the start button, the timer will beg
 
 ## Preview
 
+The following images show the coding quiz apperance.
+
+![Main Screen of Coding Quiz](img/mainscreen.png)
+![Quiz Questions Example](img/questions.png)
+
 ## Deployment
+
+The quiz can be found at:
+https://audumnv.github.io/code-quiz/
