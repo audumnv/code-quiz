@@ -1,160 +1,164 @@
-(function(){
-  // Functions
-  function buildQuiz(){
-    // variable to store the HTML output
-    const output = [];
+  var questions = [
+  {title: "What two special characters are used to make comments in JavaScript?",
+        choices: ["Question Marks", "Asterisks", "Forward Slashes"],
+        answer: "Forward Slashes"
 
-    // for each question...
-    myQuestions.forEach(
-      (currentQuestion, questionNumber) => {
-
-        // variable to store the list of possible answers
-        const answers = [];
-
-        // and for each available answer...
-        for(letter in currentQuestion.answers){
-
-          // ...add an HTML radio button
-          answers.push(
-            `<label>
-              <input type="radio" name="question${questionNumber}" value="${letter}">
-              ${letter} :
-              ${currentQuestion.answers[letter]}
-            </label>`
-          );
-        }
-
-        // add this question and its answers to the output
-        output.push(
-          `<div class="slide">
-            <div class="question"> ${currentQuestion.question} </div>
-            <div class="answers"> ${answers.join("")} </div>
-          </div>`
-        );
-      }
-    );
-
-    // finally combine our output list into one string of HTML and put it on the page
-    quizContainer.innerHTML = output.join('');
-  }
-
-  function showResults(){
-
-    // gather answer containers from our quiz
-    const answerContainers = quizContainer.querySelectorAll('.answers');
-
-    // keep track of user's answers
-    let numCorrect = 0;
-
-    // for each question...
-    myQuestions.forEach( (currentQuestion, questionNumber) => {
-
-      // find selected answer
-      const answerContainer = answerContainers[questionNumber];
-      const selector = `input[name=question${questionNumber}]:checked`;
-      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-
-      // if answer is correct
-      if(userAnswer === currentQuestion.correctAnswer){
-        // add to the number of correct answers
-        numCorrect++;
-
-        // color the answers green
-        answerContainers[questionNumber].style.color = 'lightgreen';
-      }
-      // if answer is wrong or blank
-      else{
-        // color the answers red
-        answerContainers[questionNumber].style.color = 'red';
-      }
-    });
-
-    // show number of correct answers out of total
-    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
-  }
-
-  function showSlide(n) {
-    slides[currentSlide].classList.remove('active-slide');
-    slides[n].classList.add('active-slide');
-    currentSlide = n;
-    if(currentSlide === 0){
-      previousButton.style.display = 'none';
-    }
-    else{
-      previousButton.style.display = 'inline-block';
-    }
-    if(currentSlide === slides.length-1){
-      nextButton.style.display = 'none';
-      submitButton.style.display = 'inline-block';
-    }
-    else{
-      nextButton.style.display = 'inline-block';
-      submitButton.style.display = 'none';
-    }
-  }
-
-  function showNextSlide() {
-    showSlide(currentSlide + 1);
-  }
-
-  function showPreviousSlide() {
-    showSlide(currentSlide - 1);
-  }
-
-  // Variables
-  const quizContainer = document.getElementById('quiz');
-  const resultsContainer = document.getElementById('results');
-  const submitButton = document.getElementById('submit');
-  const myQuestions = [
-  {
-    question: "What special characters are used to make comments in JavaScript?",
-    answers: {
-      a: "@@",
-      b: "**",
-      c: "//"
     },
-    correctAnswer: "c"
-  },
   {
-    question: "The console will return which of the following? Ex: console.log(true);",
-    answers: {
-      a: "Boolean",
-      b: "String",
-      c: "Number"
+        title: "The console will return which of the following? Ex: console.log(true);",
+        choices: ["Boolean", "String", "Number"],
+        answer: "Boolean"
     },
-    correctAnswer: "a"
-  },
-  {
-    question: "Code in JavaScript is ended with which of the following?",
-    answers: {
-      a: "Exclamation Point",
-      b: "Semi-colon",
-      c: "Period",
+
+  {title: "Code in JavaScript is ended with which of the following?",
+        choices: ["Exclamation Point", "Semi-colon", "Period"],
+        answer: "Semi-colon"
+   
+    
     },
-    correctAnswer: "b"
-  }
+
 ];
 
-  // Kick things off
-  buildQuiz();
+var score = 0;
+var questionIndex = 0;
 
-  // Pagination
-  const previousButton = document.getElementById("previous");
-  const nextButton = document.getElementById("next");
-  const slides = document.querySelectorAll(".slide");
-  let currentSlide = 0;
+var timeStatus = document.querySelector("#timeStatus");
+var timer = document.querySelector("#startQuiz");
+var questionsDiv = document.querySelector("#questionsDiv");
+var wrapper = document.querySelector("#wrapper");
 
-  // Show the first slide
-  showSlide(currentSlide);
+var secondsLeft = 30;
+var holdInterval = 0;
+var penalty = 10;
+var ulCreate = document.createElement("ul");
 
-  // Event listeners
-  submitButton.addEventListener('click', showResults);
-  previousButton.addEventListener("click", showPreviousSlide);
-  nextButton.addEventListener("click", showNextSlide);
-})();
+timer.addEventListener("click", function () {
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
+            secondsLeft--;
+            timeStatus.textContent = "Time: " + secondsLeft;
 
+            if (secondsLeft <= 0) {
+                clearInterval(holdInterval);
+                allDone();
+                timeStatus.textContent = "Time's up!";
+            }
+        }, 1000);
+    }
+    render(questionIndex);
+});
 
+function render(questionIndex) {
+    questionsDiv.innerHTML = "";
+    ulCreate.innerHTML = "";
+    for (var i = 0; i < questions.length; i++) {
+        var userQuestion = questions[questionIndex].title;
+        var userChoices = questions[questionIndex].choices;
+        questionsDiv.textContent = userQuestion;
+    }
+    userChoices.forEach(function (newItem) {
+        var listItem = document.createElement("li");
+        listItem.textContent = newItem;
+        questionsDiv.appendChild(ulCreate);
+        ulCreate.appendChild(listItem);
+        listItem.addEventListener("click", (compare));
+    })
+}
+function compare(event) {
+    var element = event.target;
 
+    if (element.matches("li")) {
 
+        var createDiv = document.createElement("div");
+        createDiv.setAttribute("id", "createDiv");
+        if (element.textContent == questions[questionIndex].answer) {
+            score++;
+            createDiv.textContent = "Correct! The answer is:  " + questions[questionIndex].answer;
+        } else {
+            secondsLeft = secondsLeft - penalty;
+            createDiv.textContent = "Wrong! The correct answer is:  " + questions[questionIndex].answer;
+        }
 
- 
+    }
+    questionIndex++;
+
+    if (questionIndex >= questions.length) {
+        allDone();
+        createDiv.textContent = "End of quiz!" + " " + "You got  " + score + "/" + questions.length + " Correct!";
+    } else {
+        render(questionIndex);
+    }
+    questionsDiv.appendChild(createDiv);
+
+}
+function allDone() {
+    questionsDiv.innerHTML = "";
+    timeStatus.innerHTML = "";
+
+    var createH1 = document.createElement("h1");
+    createH1.setAttribute("id", "createH1");
+    createH1.textContent = "All Done!"
+
+    questionsDiv.appendChild(createH1);
+
+    var createP = document.createElement("p");
+    createP.setAttribute("id", "createP");
+
+    questionsDiv.appendChild(createP);
+
+    if (secondsLeft >= 0) {
+        var timeRemaining = secondsLeft;
+        var createP2 = document.createElement("p");
+        clearInterval(holdInterval);
+        createP.textContent = "Your final score is: " + timeRemaining;
+
+        questionsDiv.appendChild(createP2);
+    }
+
+    var createLabel = document.createElement("label");
+    createLabel.setAttribute("id", "createLabel");
+    createLabel.textContent = "Enter your initials: ";
+
+    questionsDiv.appendChild(createLabel);
+
+    var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
+
+    questionsDiv.appendChild(createInput);
+
+    var createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "submit");
+    createSubmit.setAttribute("id", "Submit");
+    createSubmit.textContent = "Submit";
+
+    questionsDiv.appendChild(createSubmit);
+
+    createSubmit.addEventListener("click", function () {
+        var initials = createInput.value;
+
+        if (initials === null) {
+
+            console.log("No value entered!");
+
+        } else {
+            var finalScore = {
+                initials: initials,
+                score: timeRemaining
+            }
+            console.log(finalScore);
+            var allScores = localStorage.getItem("allScores");
+            if (allScores === null) {
+                allScores = [];
+            } else {
+                allScores = JSON.parse(allScores);
+            }
+            allScores.push(finalScore);
+            var newScore = JSON.stringify(allScores);
+            localStorage.setItem("allScores", newScore);
+            window.location.replace("./HighScores.html");
+        }
+    });
+
+}

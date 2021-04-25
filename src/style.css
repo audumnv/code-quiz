@@ -1,78 +1,122 @@
 body {
-	font-size: 20px;
 	font-family: "Times New Roman", Times, serif;
-	color: black;
-	font-weight: 100;
-	text-align: center;
-	background-color: rgba(248, 209, 215, 0);
-}
-header {
-	background-color: pink;
-	color: white;
+	background-color: white;
 }
 h1 {
-	font-weight: 300;
-	margin: 0px;
-	padding: 10px;
-	font-size: 30px;
+	text-align: center;
+}
+label {
+	margin-right: 10px;
+}
+input {
+	margin-bottom: 20px;
+	width: 50%;
+	border: 1px solid lightgray;
 }
 
-.highscores {
-	font-weight: 300;
-	margin: 0px;
+li {
+	background-color: pink;
+	margin-top: 30px;
+	padding-top: 20px;
+	padding: 5px 15px;
+	width: 80%;
+	font-size: 18px;
+	color: white;
+}
+
+#wrapper {
+	position: absolute;
+	margin-top: 30px;
+	width: 500px;
+	height: 500px;
+	border: 2px solid pink;
 	padding: 10px;
-	font-size: 20px;
-	right: 100;
-	position: relative;
-}
-.highscores:visited {
-	color: black;
-}
-.question {
-	font-size: 30px;
-	margin-bottom: 10px;
-}
-.answers {
-	margin-bottom: 20px;
-	text-align: left;
-	display: inline-block;
-}
-.answers label {
-	display: block;
-	margin-bottom: 10px;
 }
 button {
-	font-family: "Work Sans", sans-serif;
-	font-size: 22px;
 	background-color: pink;
-	color: #fff;
-	border: 0px;
-	border-radius: 3px;
-	padding: 20px;
-	cursor: pointer;
-	margin-bottom: 20px;
-}
-button:hover {
-	background-color: white;
-	color: pink;
-	border: 2px pink solid;
+	color: white;
+	margin-left: 33%;
+	padding: 15px 32px;
+	font-size: 20px;
+	border-radius: 5px;
+	border: 1px solid pink;
 }
 
-.slide {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	z-index: 1;
-	opacity: 0;
-	transition: opacity 0.5s;
+button:hover {
+	border: 1px pink solid;
+	background-color: white;
+	color: pink;
 }
-.active-slide {
-	opacity: 1;
-	z-index: 2;
+textarea {
+	width: 90%;
+	margin: 20px;
 }
-.quiz-container {
+a {
+	position: fixed;
+	top: 5px;
+	right: 100px;
+	color: pink;
+}
+a:visited,
+a:hover {
+	color: pink;
+}
+
+#questionsDiv {
+	margin: 20px;
+}
+
+#timeStatus {
+	float: right;
+}
+
+#goBack {
+	background-color: pink;
 	position: relative;
-	height: 200px;
-	margin-top: 40px;
+	padding: 10px;
+	font-size: 20px;
+	color: white;
+	top: 30%;
+	left: 55%;
+	width: auto;
+	text-align: center;
+	text-decoration: none;
+}
+
+#clear {
+	background-color: pink;
+	position: relative;
+	padding: 10px;
+	font-size: 20px;
+	color: white;
+	top: 30%;
+	right: 5%;
+	text-align: center;
+}
+
+#Submit {
+	background-color: pink;
+	margin-left: 33%;
+	padding: 15px 32px;
+	font-size: 20px;
+	color: white;
+}
+#createDiv {
+	margin-top: 20px;
+	border-top: 1px solid lightgray;
+}
+
+#wrapper {
+	position: absolute;
+	left: 20%;
+}
+
+#goBack {
+	position: relative;
+	top: 45px;
+}
+
+#clear {
+	position: relative;
+	right: 5%;
 }
