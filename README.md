@@ -15,3 +15,14 @@ The following images show the coding quiz apperance.
 
 The quiz can be found at:
 https://audumnv.github.io/code-quiz/
+
+## Technologies Used
+HTML5
+CSS
+JavaScript
+
+## License
+MIT
+
+## Contact Information
+Email - audumnv@gmail.com
