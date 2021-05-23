@@ -21,8 +21,5 @@ HTML5
 CSS
 JavaScript
 
-## License
-MIT
-
 ## Contact Information
 Email - audumnv@gmail.com
